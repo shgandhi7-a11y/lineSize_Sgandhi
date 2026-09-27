@@ -1,0 +1,82 @@
+export type LiquidFluid = {
+  id: string;
+  label: string;
+  density: number;
+  viscCp: number;
+  pvapKpa: number;
+  note: string;
+};
+
+export type GasFluid = {
+  id: string;
+  label: string;
+  mw: number;
+  sg: number;
+  viscCp: number;
+  gamma: number;
+  z: number;
+  note: string;
+};
+
+export const LIQUID_FLUIDS: LiquidFluid[] = [
+  { id: "water25", label: "Water 25°C", density: 997, viscCp: 0.89, pvapKpa: 3.17, note: "25°C" },
+  { id: "water40", label: "Water 40°C", density: 992, viscCp: 0.65, pvapKpa: 7.38, note: "40°C" },
+  { id: "seawater", label: "Seawater", density: 1025, viscCp: 1.08, pvapKpa: 2.3, note: "approx 20°C" },
+  { id: "diesel", label: "Diesel", density: 840, viscCp: 3.5, pvapKpa: 0.1, note: "approx 15°C" },
+  { id: "gasoline", label: "Gasoline", density: 740, viscCp: 0.55, pvapKpa: 50, note: "approx" },
+  { id: "naphtha", label: "Naphtha", density: 720, viscCp: 0.4, pvapKpa: 40, note: "approx" },
+  { id: "lightcrude", label: "Light crude", density: 820, viscCp: 5, pvapKpa: 20, note: "approx" },
+  { id: "medcrude", label: "Medium crude", density: 880, viscCp: 25, pvapKpa: 8, note: "approx" },
+  { id: "methanol", label: "Methanol", density: 792, viscCp: 0.59, pvapKpa: 12.9, note: "20°C" },
+  { id: "meg", label: "MEG (pure)", density: 1113, viscCp: 16, pvapKpa: 0.01, note: "approx 25°C" },
+  { id: "benzene", label: "Benzene", density: 879, viscCp: 0.65, pvapKpa: 10, note: "20°C" },
+  { id: "vcm", label: "VCM liquid", density: 911, viscCp: 0.19, pvapKpa: 337, note: "20°C, VP ~3.37 bar" },
+  { id: "customL", label: "Custom liquid", density: 997, viscCp: 1, pvapKpa: 3, note: "edit properties" },
+];
+
+export const GAS_FLUIDS: GasFluid[] = [
+  { id: "ng", label: "Natural gas 0.65", mw: 18.82, sg: 0.65, viscCp: 0.012, gamma: 1.27, z: 0.9, note: "sweet dry, edit Z" },
+  { id: "methane", label: "Methane", mw: 16.04, sg: 0.554, viscCp: 0.011, gamma: 1.31, z: 0.95, note: "low P screening" },
+  { id: "ethane", label: "Ethane", mw: 30.07, sg: 1.038, viscCp: 0.0092, gamma: 1.19, z: 0.9, note: "" },
+  { id: "ethylene", label: "Ethylene", mw: 28.05, sg: 0.968, viscCp: 0.010, gamma: 1.24, z: 0.92, note: "" },
+  { id: "propane", label: "Propane gas", mw: 44.1, sg: 1.522, viscCp: 0.008, gamma: 1.13, z: 0.85, note: "" },
+  { id: "hydrogen", label: "Hydrogen", mw: 2.016, sg: 0.07, viscCp: 0.0089, gamma: 1.41, z: 1.01, note: "Z often > 1" },
+  { id: "nitrogen", label: "Nitrogen", mw: 28.01, sg: 0.967, viscCp: 0.0176, gamma: 1.4, z: 0.99, note: "" },
+  { id: "air", label: "Air", mw: 28.96, sg: 1, viscCp: 0.018, gamma: 1.4, z: 1, note: "" },
+  { id: "co2", label: "CO₂", mw: 44.01, sg: 1.519, viscCp: 0.015, gamma: 1.29, z: 0.8, note: "Z sensitive" },
+  { id: "ammonia", label: "Ammonia gas", mw: 17.03, sg: 0.588, viscCp: 0.010, gamma: 1.31, z: 0.95, note: "" },
+  { id: "vcmg", label: "VCM gas", mw: 62.5, sg: 2.16, viscCp: 0.011, gamma: 1.2, z: 0.9, note: "approx" },
+  { id: "customG", label: "Custom gas", mw: 20, sg: 0.7, viscCp: 0.012, gamma: 1.3, z: 0.95, note: "" },
+];
+
+export const ROUGHNESS = [
+  { id: "drawn", label: "Drawn tube", mm: 0.0015 },
+  { id: "ss", label: "Stainless", mm: 0.015 },
+  { id: "plastic", label: "HDPE / GRE", mm: 0.007 },
+  { id: "cs", label: "Commercial steel", mm: 0.046 },
+  { id: "galv", label: "Galvanized", mm: 0.15 },
+  { id: "iron", label: "Cast iron", mm: 0.26 },
+] as const;
+
+export type RoughnessId = (typeof ROUGHNESS)[number]["id"];
+
+export const FITTINGS = [
+  { id: "elbow90lr", label: "90° elbow LR", k: 0.45 },
+  { id: "elbow90sr", label: "90° elbow SR", k: 0.75 },
+  { id: "elbow45", label: "45° elbow", k: 0.35 },
+  { id: "teeRun", label: "Tee, through", k: 0.4 },
+  { id: "teeBranch", label: "Tee, branch", k: 1 },
+  { id: "gate", label: "Gate valve", k: 0.17 },
+  { id: "globe", label: "Globe valve", k: 10 },
+  { id: "ball", label: "Ball valve", k: 0.05 },
+  { id: "check", label: "Swing check", k: 2 },
+  { id: "butterfly", label: "Butterfly", k: 0.45 },
+  { id: "entrance", label: "Sharp entrance", k: 0.5 },
+  { id: "exit", label: "Exit", k: 1 },
+] as const;
+
+export type FittingId = (typeof FITTINGS)[number]["id"];
+
+export function sumK(counts: Partial<Record<FittingId, number>>): number {
+  return FITTINGS.reduce((sum, fit) => sum + (counts[fit.id] ?? 0) * fit.k, 0);
+}

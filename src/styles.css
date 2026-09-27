@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Segoe UI", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --color-bg: #e6eef1;
+  --color-surface: #f7fafb;
+  --color-inset: #e8f0f3;
+  --color-ink: #102033;
+  --color-muted: #5c6d7e;
+  --color-line: #d3dee6;
+  --color-accent: #0c6b62;
+  --color-accent-ink: #f3fbf9;
+  --color-on-ink: #f4f7f8;
+  --color-on-ink-dim: #b7c4ce;
+  --color-warn: #8a5a12;
+  --color-warn-bg: #f8efd8;
+  --color-danger: #9b2c2c;
+  --color-danger-bg: #f8e6e4;
+  --color-ok: #0e6b45;
+  --color-ok-bg: #e3f3ea;
+
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+}
+
+@layer base {
+  html {
+    background: var(--color-bg);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+.datasheet {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+  background: var(--color-bg);
+}
+
+.sheet-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--color-ink);
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+
+.sheet-stage {
+  padding: 0.75rem 0.5rem 2.5rem;
+}
+
+.sheet-page {
+  width: min(100%, 210mm);
+  margin: 0 auto;
+  border: 1px solid var(--color-line);
+  background: var(--color-surface);
+  color: var(--color-ink);
+  padding: 1rem 0.9rem 1.25rem;
+}
+
+.sketch-scroll {
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .sheet-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 10mm 11mm 12mm;
+  }
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 10mm;
+  }
+
+  body.print-sheet > *:not(.datasheet) {
+    display: none !important;
+  }
+
+  body.print-sheet .datasheet {
+    position: static;
+    display: block;
+    overflow: visible;
+    background: white;
+  }
+
+  .sheet-toolbar {
+    display: none !important;
+  }
+
+  .sheet-stage {
+    padding: 0 !important;
+  }
+
+  .sheet-page {
+    width: auto !important;
+    min-height: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    padding: 0 !important;
+  }
+
+  .sketch-scroll {
+    overflow: visible !important;
+  }
+
+  .sheet-kpis {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+  }
+
+  .sheet-split {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 5mm !important;
+  }
+
+  .sheet-page,
+  .sheet-page * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}
